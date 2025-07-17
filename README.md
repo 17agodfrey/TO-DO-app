@@ -4,7 +4,7 @@
 This is a Django-based TO-DO application created for the **Utah Valley University Proficiency Assessment**.
 
 ## Setup
-Folled Instructions in Django Proficiency Assesment - TO-DO app.pdf. No additional custom setup
+Followed Instructions in Django Proficiency Assessment - TO-DO app.pdf. No additional custom setup
 
 ## Run
 To start the development server:
