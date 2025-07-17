@@ -55,7 +55,7 @@ def notify_due_soon(sender, instance, created, **kwargs):
             send_mail(
                 subject='Task due soon!',
                 message=f'Your task "{instance.title}" is due within the hour!',
-                from_email='17agodfrey1@gmail.com',
+                from_email='someguy@gmail.com',
                 recipient_list=[instance.user.email],
                 fail_silently=True,
             )
