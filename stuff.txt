@@ -1,4 +1,0 @@
-superuser? 1st user made: 
-- Username: 17ago
-- Email: 17agodfrey@gmail.com
-- Password: caligo56
