@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}TO-DO App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Set user_timezone cookie on page load if not already set
+      (function() {
+        function getCookie(name) {
+          let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+          return match ? match[2] : null;
+        }
+        if (!getCookie('user_timezone')) {
+          var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.cookie = 'user_timezone=' + tz + ';path=/';
+        }
+      })();
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <nav class="bg-white shadow mb-6">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'task:list' %}" class="text-xl font-bold text-gray-800 hover:text-gray-900">
+                TO-DO App
+            </a>
+            <div>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="text-gray-700 hover:text-gray-900 px-3 py-1 rounded bg-transparent border-none cursor-pointer">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900 px-3 py-1 rounded">
+                        Login
+                    </a>
+                    <a href="{% url 'signup' %}" class="ml-4 text-gray-700 hover:text-gray-900 px-3 py-1 rounded">
+                        Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 flex-grow">
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    <div
+                        class="mb-2 px-4 py-3 rounded 
+                        {% if message.tags == 'error' %}bg-red-100 text-red-700
+                        {% elif message.tags == 'success' %}bg-green-100 text-green-700
+                        {% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-700
+                        {% else %}bg-blue-100 text-blue-700{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        <!-- Page content goes here -->
+        {% endblock %}
+    </main>
+
+</body>
+</html>
