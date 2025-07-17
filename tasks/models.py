@@ -5,14 +5,11 @@ from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Create your models here.
-# Priority choices
 class Priority(models.TextChoices):
     LOW = 'Low', 'Low'
     MEDIUM = 'Medium', 'Medium'
     HIGH = 'High', 'High'
 
-# Custom manager for Task
 class TaskManager(models.Manager):
     def overdue(self, user):
         return self.filter(
